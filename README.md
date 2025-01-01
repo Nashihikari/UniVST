@@ -17,7 +17,6 @@ git clone https://github.com/QuanjianSong/UniVST.git
 conda env create -f environment.yaml
 ```
 
-
 ## 2. Quick Start
 #### 2.1 Perform inversion for original video.
 ```
@@ -32,7 +31,7 @@ python mask_propagation.py --feature_path ./output/features/libby/inversion_feat
                             --output_dir ./output
 ```
 Then, you will find the mask propagation result in the ./output/mask.
-#### 2.3 Perform inversion for style Image.
+#### 2.3 Perform inversion for style image.
 ```
 python style_ddim_inv.py --style_path ./example/style/style1.png \
                             --output_dir ./output
