@@ -34,13 +34,13 @@ python mask_propagation.py --feature_path ./output/features/libby/inversion_feat
 Then, you will find the mask propagation result in the ./output/mask.
 #### 2.3 Perform inversion for style Image.
 ```
-python run_style_ddim_inv.py --style_path ./example/style/style1.png \
+python style_ddim_inv.py --style_path ./example/style/style1.png \
                             --output_dir ./output
 ```
 Then, you will find the style inversion result in the ./output/style.
 #### 2.4 Perform video style transfer.
 ```
-python run_style_transfer.py --inv_path ./output/content/libby/inversion\
+python video_style_transfer.py --inv_path ./output/content/libby/inversion\
                             --mask_path ./output/mask/libby\
                             --style_path ./output/style/style1/inversion\ 
                             --output_dir ./output
