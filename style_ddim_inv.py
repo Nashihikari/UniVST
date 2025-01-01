@@ -134,7 +134,7 @@ if __name__ == '__main__':
     parser.add_argument("--pretrained_model_path", type=str, default="/home/sqj/todo/base_models/models--runwayml--stable-diffusion-v1-5")
     parser.add_argument("--num_frames", type=int, default=16)
     parser.add_argument("--time_steps", type=int, default=50)
-    parser.add_argument("--style_path", type=str, default="example/style/style3.png")
+    parser.add_argument("--style_path", type=str, default="example/style/style4.png")
     parser.add_argument("--output_dir", type=str, default="output")
     args = parser.parse_args()
     args_dict = vars(args)

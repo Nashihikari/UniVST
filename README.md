@@ -1,10 +1,7 @@
-# UniVST: A Unified Framework for Training-free Localized Video Style Transfer
-<p align="left">
-  <a href='https://arxiv.org/abs/2410.20084'>
-  </p>
+# [UniVST: A Unified Framework for Training-free Localized Video Style Transfer](https://arxiv.org/abs/2410.20084)
 
 ## 0. Introduction
-![image](imgs/overall_framework.png)
+![Overall Framework](imgs/overall_framework.pdf)
 This is the official implementation of "UniVST: A Unified Framework for Training-free Localized Video Style Transfer". It operates without the need for training, offering a distinct advantage over existing methods that transfer style across entire videos. 
 
 ## 1. Environment Configuration
@@ -29,7 +26,7 @@ python content_ddim_inv.py --content_path ./example/content/libby \
 Then, you will find the content inversion result in the ./output/content and ./output/content.
 #### 2.2 Performance mask propagation.
 ```
-python mask_propogation.py --feature_path ./output/features/libby/inversion_feature_301.pt \
+python mask_propagation.py --feature_path ./output/features/libby/inversion_feature_301.pt \
                             --mask_path ./example/mask/libby.png \
                             --output_dir ./output
 ```
