@@ -226,15 +226,15 @@ def color_normalize(x, mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser('Evaluation with video object segmentation on DAVIS 2017')
+    parser = argparse.ArgumentParser()
     parser.add_argument('--up_ft_index', default=2, type=int, help='which upsampling block to extract the ft map')
     parser.add_argument('--temperature', default=0.2, type=float, help='temperature for softmax')
     parser.add_argument("--n_last_frames", type=int, default=9, help="number of preceeding frames")
     parser.add_argument("--topk", type=int, default=15, help="accumulate label from top k neighbors")
     parser.add_argument("--H", type=int, default=512, help="The height of mask")
     parser.add_argument("--W", type=int, default=512, help="The height of mask")
-    parser.add_argument("--feature_path", type=str, default='output/features/blackswan/inversion_feature_301.pt', help="The path of ddim feature")
-    parser.add_argument("--mask_path", type=str, default='example/mask/blackswan.png', help="The path of first path")
+    parser.add_argument("--feature_path", type=str, default='output/features/libby/inversion_feature_301.pt', help="The path of ddim feature")
+    parser.add_argument("--mask_path", type=str, default='example/mask/libby.png', help="The path of first path")
     parser.add_argument("--output_dir", type=str, default='output', help="The path of output")
     args = parser.parse_args()
     # -------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 # [UniVST: A Unified Framework for Training-free Localized Video Style Transfer](https://arxiv.org/abs/2410.20084)
 
 ## 0. Introduction
-![Overall Framework](imgs/overall_framework.png)
+![Overall Framework](imgs/overall_framework.jpg)
 This is the official implementation of "UniVST: A Unified Framework for Training-free Localized Video Style Transfer". It operates without the need for training, offering a distinct advantage over existing methods that transfer style across entire videos. 
 
 ## 1. Environment Configuration

@@ -152,7 +152,7 @@ if __name__ == '__main__':
     os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
     parser = argparse.ArgumentParser()
     # parser.add_argument("--config", type=str, default="configs/cat.yaml")
-    parser.add_argument("--pretrained_model_path", type=str, default="/home/sqj/todo/base_models/models--runwayml--stable-diffusion-v1-5")
+    parser.add_argument("--pretrained_model_path", type=str, default="stable-diffusion-v1-5/stable-diffusion-v1-5")
     parser.add_argument("--inv_path", type=str, default="output/content/libby/inversion")
     parser.add_argument("--mask_path", type=str, default="output/mask/libby")
     parser.add_argument("--style_path", type=str, default="output/style/style1/inversion")

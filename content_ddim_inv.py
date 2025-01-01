@@ -147,7 +147,7 @@ def main(
 if __name__ == '__main__':
     os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pretrained_model_path", type=str, default="/home/sqj/todo/base_models/models--runwayml--stable-diffusion-v1-5")
+    parser.add_argument("--pretrained_model_path", type=str, default="stable-diffusion-v1-5/stable-diffusion-v1-5")
     parser.add_argument("--up_ft_indices", type=int, default=2)
     parser.add_argument("--num_frames", type=int, default=16)
     parser.add_argument("--time_steps", type=int, default=50)
