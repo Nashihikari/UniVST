@@ -151,7 +151,7 @@ if __name__ == '__main__':
     parser.add_argument("--up_ft_indices", type=int, default=2)
     parser.add_argument("--num_frames", type=int, default=16)
     parser.add_argument("--time_steps", type=int, default=50)
-    parser.add_argument("--content_path", type=str, default="example/content/libby")
+    parser.add_argument("--content_path", type=str, default="example/content/blackswan")
     parser.add_argument("--output_dir", type=str, default="output")
     args = parser.parse_args()
     args_dict = vars(args)

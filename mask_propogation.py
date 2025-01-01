@@ -233,8 +233,8 @@ if __name__ == '__main__':
     parser.add_argument("--topk", type=int, default=15, help="accumulate label from top k neighbors")
     parser.add_argument("--H", type=int, default=512, help="The height of mask")
     parser.add_argument("--W", type=int, default=512, help="The height of mask")
-    parser.add_argument("--feature_path", type=str, default='output/features/libby/inversion_feature_301.pt', help="The path of ddim feature")
-    parser.add_argument("--mask_path", type=str, default='example/mask/libby.png', help="The path of first path")
+    parser.add_argument("--feature_path", type=str, default='output/features/blackswan/inversion_feature_301.pt', help="The path of ddim feature")
+    parser.add_argument("--mask_path", type=str, default='example/mask/blackswan.png', help="The path of first path")
     parser.add_argument("--output_dir", type=str, default='output', help="The path of output")
     args = parser.parse_args()
     # -------------------------------------------------------------------------------------------
