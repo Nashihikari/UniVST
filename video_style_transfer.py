@@ -78,7 +78,6 @@ def main(
     tokenizer = CLIPTokenizer.from_pretrained(pretrained_model_path, subfolder="tokenizer")
     text_encoder = CLIPTextModel.from_pretrained(pretrained_model_path, subfolder="text_encoder")
     vae = AutoencoderKL.from_pretrained(pretrained_model_path, subfolder="vae")
-    # vae = AutoencoderKLTemporalDecoder.from_pretrained('/home/lzh/code/todo/base_models/models--stabilityai--stable-video-diffusion-img2vid', subfolder="vae")
     model_config = {}
     unet = UNetPseudo3DConditionModel.from_2d_model(os.path.join(pretrained_model_path, "unet"), model_config=model_config)
     # Freeze vae and text_encoder
