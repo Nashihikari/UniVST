@@ -631,7 +631,7 @@ class SpatioTemporalStableDiffusionPipeline(DiffusionPipeline):
         return StableDiffusionPipelineOutput(images=image, nsfw_content_detected=has_nsfw_concept)
 
     @torch.no_grad()
-    def sample_with_pnp(
+    def video_style_transfer(
         self,
         prompt: Union[str, List[str]],
         video_length: Optional[int],

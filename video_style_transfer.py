@@ -115,7 +115,7 @@ def main(
     # Init Pnp, modify attention forward
     init_pnp(pipe)
     # breakpoint()
-    video = pipe.sample_with_pnp("", latents=inv_latents_at_t, video_length=16, height=512, width=512, num_inference_steps=50, guidance_scale=1.0,
+    video = pipe.video_style_transfer("", latents=inv_latents_at_t, video_length=16, height=512, width=512, num_inference_steps=50, guidance_scale=1.0,
                                 inv_path=inv_path, style_path=style_path, mask_path=mask_path).images
     video = video.permute(0, 4, 1, 2, 3).contiguous()
 
