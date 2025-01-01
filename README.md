@@ -18,26 +18,26 @@ conda env create -f environment.yaml
 
 
 ## 2. Quick Start
-#### 2.1 Inversion for original video.
+#### 2.1 Perform inversion for original video.
 ```
 python content_ddim_inv.py --content_path ./example/content/libby \
                             --output_dir ./output
 ```
 Then, you will find the content inversion result in the ./output/content and ./output/content.
-#### 2.2 Performance mask propagation.
+#### 2.2 Perform mask propagation.
 ```
 python mask_propagation.py --feature_path ./output/features/libby/inversion_feature_301.pt \
                             --mask_path ./example/mask/libby.png \
                             --output_dir ./output
 ```
 Then, you will find the mask propagation result in the ./output/mask.
-#### 2.3 Inversion for style Image.
+#### 2.3 Perform inversion for style Image.
 ```
 python run_style_ddim_inv.py --style_path ./example/style/style1.png \
                             --output_dir ./output
 ```
 Then, you will find the style inversion result in the ./output/style.
-#### 2.4 Style transfer.
+#### 2.4 Perform video style transfer.
 ```
 python run_style_transfer.py --inv_path ./output/content/libby/inversion\
                             --mask_path ./output/mask/libby\

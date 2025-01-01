@@ -155,7 +155,7 @@ if __name__ == '__main__':
     parser.add_argument("--pretrained_model_path", type=str, default="/home/sqj/todo/base_models/models--runwayml--stable-diffusion-v1-5")
     parser.add_argument("--inv_path", type=str, default="output/content/libby/inversion")
     parser.add_argument("--mask_path", type=str, default="output/mask/libby")
-    parser.add_argument("--style_path", type=str, default="output/style/style3/inversion")
+    parser.add_argument("--style_path", type=str, default="output/style/style4/inversion")
     parser.add_argument("--output_dir", type=str, default="output/")
     args = parser.parse_args()
     args_dict = vars(args)
