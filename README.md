@@ -13,6 +13,7 @@ pip install -r requirements.txt
 ```
 #### 1.2 Installation with environment.yaml
 ```
+git clone https://github.com/QuanjianSong/UniVST.git
 conda env create -f environment.yaml
 ```
 
