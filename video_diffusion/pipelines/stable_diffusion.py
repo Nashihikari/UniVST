@@ -723,7 +723,7 @@ class SpatioTemporalStableDiffusionPipeline(DiffusionPipeline):
                 style_inv_latents_at_t = load_ddim_latents_at_t(t, style_path).to(latents.dtype).to(self.device)
                 # ---------------------------------add code------------------------------------
                 dtype = latents.dtype
-                if t >= 200:
+                if t >= 100:
                     mask = load_mask(mask_path)
                     # resized_mask shape: [1, 4, 16, 64, 64]
                     resized_mask = F.interpolate(mask.to(latents.device).to(latents.dtype), size=(latents.shape[-2], latents.shape[-1]), 

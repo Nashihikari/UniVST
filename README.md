@@ -13,11 +13,14 @@ conda env create -f environment.yaml
 ## 2. Quick Start
 #### 2.1 Inversion for original video.
 ```
-python run_content_ddim_inv.py
+python content_ddim_inv.py --content_path ./example/content/libby \
+                            --output_dir ./output
 ```
 #### 2.2 Performance mask propagation.
 ```
-python mask_propogation.py
+python mask_propogation.py --feature_path ./output/features/libby/inversion_feature_301.pt \
+                            --mask_path ./example/mask/libby.png \
+                            --output_dir ./output
 ```
 #### 2.3 Inversion for style Image.
 ```
@@ -27,4 +30,13 @@ python run_style_ddim_inv.py
 ```
 python run_style_transfer.py
 ```
-# UniVST
+## Citation
+If you find this code helpful for your research, please cite:
+```
+@article{song2024univst,
+  title={UniVST: A Unified Framework for Training-free Localized Video Style Transfer},
+  author={Song, Quanjian and Lin, Mingbao and Zhan, Wengyi and Yan, Shuicheng and Cao, Liujuan},
+  journal={arXiv preprint arXiv:2410.20084},
+  year={2024}
+}
+```
