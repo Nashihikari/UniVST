@@ -27,7 +27,7 @@ from transformers import CLIPTextModel, CLIPTokenizer
 
 from video_diffusion.models.unet_3d_condition import UNetPseudo3DConditionModel
 from video_diffusion.pipelines.stable_diffusion import SpatioTemporalStableDiffusionPipeline
-from video_diffusion.util import save_folder, save_videos_grid, ddim_inversion, load_ddim_latents_at_t, save_gif_mp4_folder_type, save_images_as_folder
+from video_diffusion.util import save_folder, save_videos_grid, ddim_inversion, load_ddim_latents_at_t, save_gif_mp4_folder_type, save_images_as_folder, seed_everything
 from einops import rearrange
 import os
 from video_diffusion.pnp_utils import register_spatial_attention_pnp
@@ -138,14 +138,6 @@ def adain(cnt_feat, sty_feat, ad=True):
         output = F.instance_norm(cnt_feat) * output_std + output_mean
         # output = ((output - cnt_mean) / cnt_std) * output_std + output_mean
     return output.to(sty_feat.dtype)
-
-def seed_everything(seed=42):
-    # Python随机种子
-    random.seed(seed)
-    # NumPy随机种子
-    np.random.seed(seed)
-    # PyTorch随机种子
-    torch.manual_seed(seed)
 
 
 if __name__ == '__main__':
