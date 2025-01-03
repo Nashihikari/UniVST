@@ -44,8 +44,7 @@ def video_mask_propogation(args):
         # we use the first segmentation and the n previous ones
         used_frame_feats = [frame1_feat] + [pair[0] for pair in list(que.queue)]
         used_segs = [first_seg.squeeze(0).flatten(1).cuda()] + [pair[1].cuda() for pair in list(que.queue)]
-        frame_tar_avg, seg_sample, feat_tar = label_propagation(args, used_frame_feats, used_segs, index=cnt, 
-                                                                                    path=args.feature_path)
+        frame_tar_avg, seg_sample, feat_tar = label_propagation(args, used_frame_feats, used_segs, index=cnt)
         # pop out oldest frame if neccessary
         if que.qsize() == args.n_last_frames:
             que.get()
@@ -73,13 +72,13 @@ def norm_mask(mask):
             mask[cnt,:,:] = mask_cnt
     return mask
 
-def label_propagation(args, list_frame_feats, list_segs, index=None, path=None):
+def label_propagation(args, list_frame_feats, list_segs, index=None):
     # ----------------------------------------------------------------------------------------------------------------
     gc.collect()
     torch.cuda.empty_cache()
     # ----------------------------------------------------------------------------------------------------------------
     ## we only need to extract feature of the target frame
-    feat_tar, h, w = read_feature(path, index, return_h_w=True)
+    feat_tar, h, w = read_feature(args.feature_path, index, return_h_w=True)
     # ----------------------------------------------------------------------------------------------------------------
     gc.collect()
     torch.cuda.empty_cache()
@@ -115,12 +114,12 @@ def label_propagation(args, list_frame_feats, list_segs, index=None, path=None):
     back_index = torch.where(seg_tar[0, :] == 0)[0]
     back_nums = len(back_index)
     # generate random index
-    random_indices = torch.randperm(len(fore_index))[: int(fore_nums / (fore_nums + back_nums) * 0.5)]
+    random_indices = torch.randperm(len(fore_index))[: int(len(fore_index) * fore_nums / (fore_nums + back_nums) * args.sample_ratio)]
     # choice sub data from all data
     fore_index_sample = fore_index[random_indices]
     # ------------------------------------------------------------------------------------
     # generate random index
-    random_indices = torch.randperm(len(back_index))[: int(back_nums / (fore_nums + back_nums) * 0.5)]
+    random_indices = torch.randperm(len(back_index))[: int(len(back_index) * back_nums / (fore_nums + back_nums) * args.sample_ratio)]
     # choice sub data from all data
     back_index_sample = back_index[random_indices]
     # concat
@@ -227,15 +226,16 @@ def color_normalize(x, mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--up_ft_index', default=2, type=int, help='which upsampling block to extract the ft map')
-    parser.add_argument('--temperature', default=0.2, type=float, help='temperature for softmax')
-    parser.add_argument("--n_last_frames", type=int, default=9, help="number of preceeding frames")
-    parser.add_argument("--topk", type=int, default=15, help="accumulate label from top k neighbors")
-    parser.add_argument("--H", type=int, default=512, help="The height of mask")
-    parser.add_argument("--W", type=int, default=512, help="The height of mask")
-    parser.add_argument("--feature_path", type=str, default='output/features/libby/inversion_feature_301.pt', help="The path of ddim feature")
-    parser.add_argument("--mask_path", type=str, default='example/mask/libby.png', help="The path of first path")
-    parser.add_argument("--output_dir", type=str, default='output', help="The path of output")
+    parser.add_argument('--up_ft_index', default=2, type=int, help='Which upsampling block to extract the ft map.')
+    parser.add_argument('--temperature', default=0.2, type=float, help='The temperature for softmax.')
+    parser.add_argument("--n_last_frames", type=int, default=9, help="The numbers of anchor frames.")
+    parser.add_argument("--topk", type=int, default=15, help="The hyper-parameters of KNN top k.")
+    parser.add_argument("--sample_ratio", type=float, default=0.3, help="The sample ratio of mask propagation.")
+    parser.add_argument("--H", type=int, default=512, help="The height of mask.")
+    parser.add_argument("--W", type=int, default=512, help="The weight of mask.")
+    parser.add_argument("--feature_path", type=str, default='output/features/libby/inversion_feature_301.pt', help="The path of ddim feature.")
+    parser.add_argument("--mask_path", type=str, default='example/mask/libby.png', help="The path of first frame.")
+    parser.add_argument("--output_dir", type=str, default='output', help="The path of output.")
     args = parser.parse_args()
     # -------------------------------------------------------------------------------------------
     video_mask_propogation(args)
