@@ -16,7 +16,7 @@ import transformers
 from accelerate import Accelerator
 from accelerate.logging import get_logger
 from accelerate.utils import set_seed
-from diffusers import AutoencoderKL, DDPMScheduler, DDIMScheduler
+from diffusers import AutoencoderKL, DDPMScheduler, DDIMScheduler, AutoencoderKLTemporalDecoder
 from diffusers.utils import check_min_version
 
 from transformers import CLIPTextModel, CLIPTokenizer
@@ -72,7 +72,9 @@ def main(
     noise_scheduler = DDPMScheduler.from_pretrained(pretrained_model_path, subfolder="scheduler")
     tokenizer = CLIPTokenizer.from_pretrained(pretrained_model_path, subfolder="tokenizer")
     text_encoder = CLIPTextModel.from_pretrained(pretrained_model_path, subfolder="text_encoder")
-    vae = AutoencoderKL.from_pretrained(pretrained_model_path, subfolder="vae")
+    # vae = AutoencoderKL.from_pretrained(pretrained_model_path, subfolder="vae")
+    # use 3d vae for more stable results
+    vae = AutoencoderKLTemporalDecoder.from_pretrained('stabilityai/stable-video-diffusion-img2vid', subfolder="vae")
     model_config = {}
     unet = UNetPseudo3DConditionModel.from_2d_model(os.path.join(pretrained_model_path, "unet"), model_config=model_config)
     # Set grad false

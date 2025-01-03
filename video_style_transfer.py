@@ -6,7 +6,6 @@ import math
 import os
 from typing import Dict, Optional, Tuple
 from omegaconf import OmegaConf
-# from diffusers import StableVideoDiffusionPipeline
 from datetime import datetime
 
 import torch
@@ -77,7 +76,9 @@ def main(
     noise_scheduler = DDPMScheduler.from_pretrained(pretrained_model_path, subfolder="scheduler")
     tokenizer = CLIPTokenizer.from_pretrained(pretrained_model_path, subfolder="tokenizer")
     text_encoder = CLIPTextModel.from_pretrained(pretrained_model_path, subfolder="text_encoder")
-    vae = AutoencoderKL.from_pretrained(pretrained_model_path, subfolder="vae")
+    # vae = AutoencoderKL.from_pretrained(pretrained_model_path, subfolder="vae")
+    # use 3d vae for more stable results
+    vae = AutoencoderKLTemporalDecoder.from_pretrained('stabilityai/stable-video-diffusion-img2vid', subfolder="vae")
     model_config = {}
     unet = UNetPseudo3DConditionModel.from_2d_model(os.path.join(pretrained_model_path, "unet"), model_config=model_config)
     # Freeze vae and text_encoder
