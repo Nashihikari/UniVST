@@ -53,7 +53,7 @@ If you find this code helpful for your research, please cite:
 ```
 @article{song2024univst,
   title={UniVST: A Unified Framework for Training-free Localized Video Style Transfer},
-  author={Song, Quanjian and Lin, Mingbao and Zhan, Wengyi and Yan, Shuicheng and Cao, Liujuan},
+  author={Song, Quanjian and Lin, Mingbao and Zhan, Wengyi and Yan, Shuicheng and Cao, Liujuan and Ji, Rongrong},
   journal={arXiv preprint arXiv:2410.20084},
   year={2024}
 }
