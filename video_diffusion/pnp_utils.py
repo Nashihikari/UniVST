@@ -149,5 +149,4 @@ def adain(cnt_feat, sty_feat):
     output_std = beta * sty_std + (1 - beta) * cnt_std
 
     output = F.instance_norm(cnt_feat) * output_std + output_mean
-    # output = ((cnt_feat-cnt_mean)/cnt_std) * sty_std + sty_mean
     return output

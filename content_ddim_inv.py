@@ -5,10 +5,8 @@ import inspect
 import math
 import os
 from typing import Optional
-from omegaconf import OmegaConf
 
 import torch
-import torch.nn.functional as F
 import torch.utils.checkpoint
 
 import diffusers
@@ -26,10 +24,6 @@ from video_diffusion.pipelines.stable_diffusion import SpatioTemporalStableDiffu
 from video_diffusion.util import save_videos_grid, ddim_inversion, seed_everything, load_video_frames
 from einops import rearrange
 import os
-import numpy as np
-from PIL import Image
-import re
-import PIL
 
 
 # Will error if the minimal version of diffusers is not installed. Remove at your own risks.
@@ -108,7 +102,7 @@ def main(
         ).input_ids[0]
         # DataLoaders creation:
         train_dataloader = torch.utils.data.DataLoader(
-            train_dataset, batch_size=train_batch_size
+            train_dataset, batch_size=1
         )
         # Prepare everything with our `accelerator`.
         train_dataloader = accelerator.prepare(train_dataloader)

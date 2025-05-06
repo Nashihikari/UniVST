@@ -2,11 +2,9 @@ import os
 import copy
 import glob
 import queue
-from urllib.request import urlopen
 import argparse
 import numpy as np
 from tqdm import tqdm
-import time
 
 import gc
 import cv2

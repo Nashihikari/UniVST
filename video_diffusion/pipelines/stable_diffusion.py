@@ -719,10 +719,10 @@ class SpatioTemporalStableDiffusionPipeline(DiffusionPipeline):
         num_warmup_steps = len(timesteps) - num_inference_steps * self.scheduler.order
         with self.progress_bar(total=num_inference_steps) as progress_bar:
             for i, t in enumerate(timesteps):
+                # ---------------------------------add code------------------------------------
                 ddim_inv_latents_at_t = load_ddim_latents_at_t(t, inv_path).to(latents.dtype).to(self.device)
                 style_inv_latents_at_t = load_ddim_latents_at_t(t, style_path).to(latents.dtype).to(self.device)
-                # ---------------------------------add code------------------------------------
-                dtype = latents.dtype
+                #
                 if t >= 100:
                     mask = load_mask(mask_path)
                     # resized_mask shape: [1, 4, 16, 64, 64]
@@ -732,7 +732,7 @@ class SpatioTemporalStableDiffusionPipeline(DiffusionPipeline):
                     ori_latents = load_ddim_latents_at_t(
                     t, ddim_latents_path=inv_path
                     ).to(latents.dtype).to(self.device)
-                    latents = resized_mask * latents + (1 - resized_mask) * ori_latents 
+                    latents = (1 - resized_mask) * latents + resized_mask * ori_latents 
                 # ------------------------------------------------------------------------------------------------------------------
                 if t >= 100 and t <= 200:
                     mask = load_mask(mask_path)
@@ -740,8 +740,7 @@ class SpatioTemporalStableDiffusionPipeline(DiffusionPipeline):
                     resized_mask = F.interpolate(mask.to(latents.device).to(latents.dtype), size=(latents.shape[-2], latents.shape[-1]), 
                                                     mode='bilinear', align_corners=False)
                     resized_mask = resized_mask[None, :]
-                    alpha = (0.1 - 0.9) / 100 * (t - 100) + 0.9
-                    latents = (1 - resized_mask) * ((1 - alpha) * latents + alpha * self.adain(latents, style_inv_latents_at_t)) + resized_mask * ori_latents 
+                    latents = (1 - resized_mask) * self.adain(latents, style_inv_latents_at_t) + resized_mask * ori_latents 
 
                 # expand the latents if we are doing classifier free guidance
                 if do_classifier_free_guidance:
@@ -895,7 +894,6 @@ class SpatioTemporalStableDiffusionPipeline(DiffusionPipeline):
         # -------------------------------------------------------------------------------------------
         if ad:
             output = F.instance_norm(output) * output_std + output_mean
-            # output = ((output - cnt_mean) / cnt_std) * output_std + output_mean
         return output.to(sty_feat.dtype)
 
     @staticmethod

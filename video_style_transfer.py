@@ -1,15 +1,10 @@
 import argparse
-# import datetime
 import logging
 import inspect
-import math
 import os
-from typing import Dict, Optional, Tuple
-from omegaconf import OmegaConf
-from datetime import datetime
+from typing import Optional
 
 import torch
-import torch.fft as fft
 import torch.nn.functional as F
 import torch.utils.checkpoint
 
@@ -19,16 +14,12 @@ from accelerate import Accelerator
 from accelerate.logging import get_logger
 from accelerate.utils import set_seed
 from diffusers import AutoencoderKL, DDPMScheduler, DDIMScheduler, AutoencoderKLTemporalDecoder
-from diffusers.optimization import get_scheduler
 from diffusers.utils import check_min_version
-from diffusers.utils.import_utils import is_xformers_available
-from tqdm.auto import tqdm
 from transformers import CLIPTextModel, CLIPTokenizer
 
 from video_diffusion.models.unet_3d_condition import UNetPseudo3DConditionModel
 from video_diffusion.pipelines.stable_diffusion import SpatioTemporalStableDiffusionPipeline
-from video_diffusion.util import save_folder, save_videos_grid, ddim_inversion, load_ddim_latents_at_t, save_gif_mp4_folder_type, save_images_as_folder, seed_everything
-from einops import rearrange
+from video_diffusion.util import save_folder, save_videos_grid, ddim_inversion, load_ddim_latents_at_t
 import os
 from video_diffusion.pnp_utils import register_spatial_attention_pnp
 
@@ -111,6 +102,7 @@ def main(
             981, ddim_latents_path=style_path
         ).to(accelerator.device, dtype=weight_dtype)
     # -----------------------------------------------------------------------------------------------
+    # Init latent-shift
     inv_latents_at_t = adain(inv_latents_at_t, style_latents_at_t)
     # -----------------------------------------------------------------------------------------------
     # Init Pnp, modify attention forward
@@ -136,7 +128,6 @@ def adain(cnt_feat, sty_feat, ad=True):
     # -------------------------------------------------------------------------------------------
     if ad:
         output = F.instance_norm(cnt_feat) * output_std + output_mean
-        # output = ((output - cnt_mean) / cnt_std) * output_std + output_mean
     return output.to(sty_feat.dtype)
 
 
