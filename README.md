@@ -5,7 +5,9 @@
 This is the official implementation of "UniVST: A Unified Framework for Training-free Localized Video Style Transfer". It operates without the need for training, offering a distinct advantage over existing methods that transfer style across entire videos. 
 
 ## 1. Environment Configuration
+```
 git clone https://github.com/QuanjianSong/UniVST.git
+```
 #### 1.1 Installation with the requirement.txt
 ```
 conda create -n UniVST python=3.9
